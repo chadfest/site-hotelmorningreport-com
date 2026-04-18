@@ -62,6 +62,60 @@
 
     <section class="section"><h2>Three steps from manual process to automated morning brief.</h2><p>We map the workflow, automate the assembly, and deliver the brief — with an optional AI summary layered on top where useful.</p><div style="display:grid;gap:12px;margin-top:26px;max-width:880px"><div style="display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--paper)"><div style="width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fffaf1;background:var(--gold);font-weight:950;font-size:17px;flex-shrink:0">1</div><div><strong>Map the recurring workflow.</strong><p style="margin:4px 0 0;color:var(--muted);font-size:15px">Inputs, exports, timing, manual steps, and who receives the morning output.</p></div></div><div style="display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--paper)"><div style="width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fffaf1;background:var(--gold);font-weight:950;font-size:17px;flex-shrink:0">2</div><div><strong>Automate the assembly.</strong><p style="margin:4px 0 0;color:var(--muted);font-size:15px">Pull, clean, combine, and format the consolidated output automatically every morning.</p></div></div><div style="display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--paper)"><div style="width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fffaf1;background:var(--gold);font-weight:950;font-size:17px;flex-shrink:0">3</div><div><strong>AI reads the data and writes the brief.</strong><p style="margin:4px 0 0;color:var(--muted);font-size:15px">Once the pipeline is running, AI interprets the consolidated output — naming exceptions, flagging properties that need attention, and surfacing the first move. The part that used to take judgment every morning becomes automatic too.</p></div></div></div></section>
 
+    <style>#rc-igrid{display:grid;grid-template-columns:1fr 1fr;gap:28px}#rc-ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}@media(max-width:640px){#rc-igrid,#rc-ogrid{grid-template-columns:1fr}}</style>
+    <section class="section" id="calculator">
+      <h2>How much is manual reporting costing your team?</h2>
+      <p>Enter your portfolio size and the time spent each morning. The math usually surprises people.</p>
+      <div style="margin-top:32px;max-width:860px;border:1px solid var(--line);border-radius:28px;background:rgba(255,250,241,.92);box-shadow:var(--shadow);overflow:hidden">
+        <div style="padding:32px 36px;display:grid;gap:26px">
+          <div id="rc-igrid">
+            <div>
+              <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:12px">Properties in portfolio</div>
+              <input type="range" id="rc-props" min="1" max="50" value="8" style="width:100%;accent-color:#245b70;margin-bottom:10px" oninput="rcCalc()">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span id="rc-pv" style="font-size:38px;font-weight:800;letter-spacing:-.02em">8</span><span style="font-size:14px;color:var(--muted)">properties</span></div>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:12px">Minutes per morning</div>
+              <input type="range" id="rc-mins" min="10" max="120" value="35" step="5" style="width:100%;accent-color:#245b70;margin-bottom:10px" oninput="rcCalc()">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span id="rc-mv" style="font-size:38px;font-weight:800;letter-spacing:-.02em">35</span><span style="font-size:14px;color:var(--muted)">min / day</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:12px">Who handles the reporting?</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button id="rc-b0" onclick="rcRole(85000,0)" style="padding:9px 16px;border-radius:999px;font-family:inherit;font-size:13px;font-weight:750;cursor:pointer;border:1.5px solid #245b70;background:#245b70;color:#fff">Revenue Manager</button>
+              <button id="rc-b1" onclick="rcRole(120000,1)" style="padding:9px 16px;border-radius:999px;font-family:inherit;font-size:13px;font-weight:750;cursor:pointer;border:1.5px solid var(--line);background:transparent;color:var(--ink)">Dir. of Revenue</button>
+              <button id="rc-b2" onclick="rcRole(145000,2)" style="padding:9px 16px;border-radius:999px;font-family:inherit;font-size:13px;font-weight:750;cursor:pointer;border:1.5px solid var(--line);background:transparent;color:var(--ink)">VP / COO</button>
+              <button id="rc-b3" onclick="rcRole(0,3)" style="padding:9px 16px;border-radius:999px;font-family:inherit;font-size:13px;font-weight:750;cursor:pointer;border:1.5px solid var(--line);background:transparent;color:var(--ink)">Skip salary</button>
+            </div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--line);background:#142b35;padding:28px 36px">
+          <div id="rc-ogrid">
+            <div>
+              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,250,241,.4);margin-bottom:6px">Hours per year</div>
+              <div id="rc-h" style="font-size:42px;font-weight:800;letter-spacing:-.025em;line-height:1.05;color:#fffaf1">—</div>
+              <div id="rc-w" style="font-size:13px;color:rgba(255,250,241,.5);margin-top:4px"></div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,250,241,.4);margin-bottom:6px">Annual cost</div>
+              <div id="rc-c" style="font-size:42px;font-weight:800;letter-spacing:-.025em;line-height:1.05;color:#fffaf1">—</div>
+              <div id="rc-cn" style="font-size:13px;color:rgba(255,250,241,.5);margin-top:4px">select a role above</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,250,241,.4);margin-bottom:6px">Manual operations</div>
+              <div id="rc-o" style="font-size:42px;font-weight:800;letter-spacing:-.025em;line-height:1.05;color:#fffaf1">—</div>
+              <div style="font-size:13px;color:rgba(255,250,241,.5);margin-top:4px">per year</div>
+            </div>
+          </div>
+          <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,250,241,.1);font-size:15px;color:rgba(255,250,241,.6)">All of that goes away. <a href="#book" style="color:#fffaf1;font-weight:800;text-decoration:underline;text-underline-offset:3px">Book a review to scope the pilot →</a></div>
+        </div>
+      </div>
+    </section>
+    <script>
+    !function(){var _r=85000,_ac='#245b70';function _c(){var p=+document.getElementById('rc-props').value,m=+document.getElementById('rc-mins').value;document.getElementById('rc-pv').textContent=p;document.getElementById('rc-mv').textContent=m;var h=Math.round(p*m*365/60);document.getElementById('rc-h').textContent=h.toLocaleString();document.getElementById('rc-w').textContent=(h/40).toFixed(1)+' work weeks';document.getElementById('rc-o').textContent=(p*365).toLocaleString();if(_r>0){var c=Math.round(h*(_r/2080));document.getElementById('rc-c').textContent='$'+c.toLocaleString();document.getElementById('rc-cn').textContent='at $'+Math.round(_r/2080)+'/hr';}else{document.getElementById('rc-c').textContent='—';document.getElementById('rc-cn').textContent='salary not included';}}window.rcCalc=_c;window.rcRole=function(r,i){_r=r;for(var j=0;j<4;j++){var b=document.getElementById('rc-b'+j);b.style.background='transparent';b.style.color='';b.style.borderColor='var(--line)';}var a=document.getElementById('rc-b'+i);a.style.background=_ac;a.style.color='#fff';a.style.borderColor=_ac;_c();};_c();}();
+    </script>
+
     <section class="booking" id="book">
       <div><h2>Book a morning report workflow review.</h2><p>Send the reports involved, who reads the morning output, and what still gets done manually. I will help identify the first workflow to automate.</p></div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">
